@@ -163,7 +163,7 @@ Once exported, how many partitions (folders) are present in Google Cloud?
 
 ## Solution
 
-<img title="" src="file:///D:/2024/programacion/data_engineering_zoomcamp-data_talks/data-engineering-zoomcamp-homework/git_shared/02-workflow-orchestration/mage-homework-blocks/etl_pipeline.PNG" alt="" data-align="center">
+<img title="" src="https://raw.githubusercontent.com/exequiel-santucho/data-engineering-zoomcamp-homework/master/02-workflow-orchestration/mage-homework-blocks/etl_pipeline.PNG" alt="" data-align="center">
 
 1) **Code block for Question 1 (Data Loader)**
 
