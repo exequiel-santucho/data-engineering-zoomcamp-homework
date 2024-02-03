@@ -163,7 +163,7 @@ Once exported, how many partitions (folders) are present in Google Cloud?
 
 ## Solution
 
-<img src="file:///D:/2024/programacion/data_engineering_zoomcamp-data_talks/data-engineering-zoomcamp-homework/module2-workflow_orchrestation/captura_para_semana_2.PNG" title="" alt="" data-align="center">
+<img title="" src="file:///D:/2024/programacion/data_engineering_zoomcamp-data_talks/data-engineering-zoomcamp-homework/git_shared/02-workflow-orchestration/mage-homework-blocks/etl_pipeline.PNG" alt="" data-align="center">
 
 1) **Code block for Question 1 (Data Loader)**
 
@@ -186,7 +186,7 @@ def load_data_from_api(*args, **kwargs):
             'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2020-11.csv.gz',
             'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2020-12.csv.gz'
     ]
-    
+
     taxi_dtypes = {
                     'VendorID': pd.Int64Dtype(),
                     'passenger_count': pd.Int64Dtype(),
@@ -228,7 +228,6 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, 'The output is undefined'
-
 ```
 
 2) **Code block for Questions 2, 3, 4 and 5 (Transformer)**
@@ -266,7 +265,7 @@ def transform(data, *args, **kwargs):
     for col in cols:
         if is_camel_case(col):
             n += 1
-    
+
     print('Number of columns that need to be renamed to snake case: ', n)
 
     # transform cols CamelCase to snake_case
@@ -307,21 +306,21 @@ def test_3_output(output, *args):
    
    if 'data_exporter' not in globals():
        from mage_ai.data_preparation.decorators import data_exporter
-   
-   
+   ```
+
    @data_exporter
    def export_data_to_postgres(df: DataFrame, **kwargs) -> None:
        """
        Template for exporting data to a PostgreSQL database.
        Specify your configuration settings in 'io_config.yaml'.
-   
+
        Docs: https://docs.mage.ai/design/data-loading#postgresql
        """
        schema_name = 'mage'  # Specify the name of the schema to export data to
        table_name = 'green_taxi'  # Specify the name of the table to export data to
        config_path = path.join(get_repo_path(), 'io_config.yaml')
        config_profile = 'dev'
-   
+    
        with Postgres.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
            loader.export(
                df,
@@ -330,9 +329,8 @@ def test_3_output(output, *args):
                index=False,  # Specifies whether to include index in exported table
                if_exists='replace',  # Specify resolution policy if table name already exists
            )
-   
-   ```
 
+```
 Partitioned parquet data to GCS:
 
 ```python
@@ -342,7 +340,7 @@ import os
 
 
 if 'data_exporter' not in globals():
-    from mage_ai.data_preparation.decorators import data_exporter
+ from mage_ai.data_preparation.decorators import data_exporter
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/src/zeta-serenity-412422-0196fa2482b7.json'
 
@@ -356,17 +354,16 @@ root_path = f'{bucket_name}/{table_name}'
 @data_exporter
 def export_data(data, *args, **kwargs):
 
-    table = pa.Table.from_pandas(data)
+ table = pa.Table.from_pandas(data)
 
-    gcs = pa.fs.GcsFileSystem()
+ gcs = pa.fs.GcsFileSystem()
 
-    pq.write_to_dataset(
-        table,
-        root_path=root_path,
-        partition_cols=['lpep_pickup_date'],
-        filesystem=gcs
-    )
-
+ pq.write_to_dataset(
+     table,
+     root_path=root_path,
+     partition_cols=['lpep_pickup_date'],
+     filesystem=gcs
+ )
 ```
 
 Single parquet data to GCS (not required in this homework):
@@ -401,5 +398,4 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
         bucket_name,
         object_key,
     )
-
 ```
