@@ -2,7 +2,19 @@
 
 # Data ingestion with dlt
 
-​XXXXXXXX
+To perform this task, the following resources have been followed:
+
+Data ingestion with dlt notes: [Link](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/workshops/dlt.md)
+
+From above, consulted videos are listed:
+
+- [Data Ingestion From APIs to Warehouses]([Data Ingestion From APIs to Warehouses - Adrian Brudaru - YouTube](https://www.youtube.com/watch?v=oLXhBM7nf2Q))
+
+From above, consulted specific codes and instructions:
+
+- [Workshop content](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/workshops/dlt_resources/data_ingestion_workshop.md)
+
+- [Workshop notebook](https://colab.research.google.com/drive/1kLyD3AL-tYf_HqCXYnA3ZLwHGpzbLmoj#scrollTo=5aPjk0O3S_Ag&forceEdit=true&sandboxMode=true)
 
 ---
 
@@ -105,8 +117,8 @@ generators_pipeline = dlt.pipeline(destination='duckdb', dataset_name='generator
 
 # Load the first generator above to a table at the pipeline destnation as follows:
 info = generators_pipeline.run(people_1(),
-										table_name="people_info",
-										write_disposition="replace")
+                                        table_name="people_info",
+                                        write_disposition="replace")
 
 print(info)
 ```
@@ -114,8 +126,8 @@ print(info)
 ```python
 # Append the second generator to the first table
 info = generators_pipeline.run(people_2(),
-										table_name="people_info",
-										write_disposition="append")
+                                        table_name="people_info",
+                                        write_disposition="append")
 ```
 
 ```python
@@ -182,13 +194,13 @@ generators_pipeline = dlt.pipeline(destination='duckdb', dataset_name='generator
 
 # Load the first generator above to a table at the pipeline destnation as follows:
 info = generators_pipeline.run(people_1(),
-										table_name="people_info",
-										write_disposition="replace")
+                                        table_name="people_info",
+                                        write_disposition="replace")
 
 # Load the second generator to the first table with merge
 info = generators_pipeline.run(people_2(),
-										table_name="people_info",
-										write_disposition="merge",
+                                        table_name="people_info",
+                                        write_disposition="merge",
                     primary_key='ID')
 
 print(info)
@@ -221,10 +233,6 @@ display(ages_sum)
 
 # 266
 ```
-
-
-
-
 
 Submit the solution here: https://courses.datatalks.club/de-zoomcamp-2024/homework/workshop1
 
