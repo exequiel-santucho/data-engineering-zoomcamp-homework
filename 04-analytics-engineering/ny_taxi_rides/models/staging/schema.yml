@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: zeta-serenity-412422
+    schema: module4_ny_data_all
+
+    tables:
+      - name: external_green_tripdata
+      - name: external_yellow_tripdata
